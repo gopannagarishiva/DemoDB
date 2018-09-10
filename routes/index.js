@@ -3,6 +3,8 @@ var router = express.Router();
 
 var mysql = require('mysql');
 
+var connection;
+
 var con = mysql.createConnection({
   host : 'sg06.tmd.cloud',
   user : 'affilout_root',
@@ -10,14 +12,16 @@ var con = mysql.createConnection({
   database : 'affilout_Demo'
 });
 
-con.connect(function(err){
-  if(err){
-    console.log(err);
-  }
-  console.log('connected.');
-});
-
 router.get('/', function(req, res, next) {
+  con.connect(function(err){
+    if(err){
+      res.send('error');
+    }
+    else{
+      res.send('connected');
+    }
+  });
 });
 
 module.exports = router;
+
